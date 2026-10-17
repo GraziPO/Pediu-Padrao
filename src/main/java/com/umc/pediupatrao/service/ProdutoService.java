@@ -1,0 +1,53 @@
+package com.umc.pediupatrao.service;
+
+import com.umc.pediupatrao.entity.Produto;
+import com.umc.pediupatrao.repository.ProdutoRepository;
+import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+
+@Service
+public class ProdutoService {
+
+    @Autowired
+    private ProdutoRepository produtoRepository;
+
+    public Produto novoProduto(Produto produto) {
+        return produtoRepository.save(produto);
+    }
+
+    public List<Produto> listarProdutos() {
+        return produtoRepository.findAll();
+    }
+
+    public Optional<Produto> buscarPorId(String id) {
+        return produtoRepository.findById(id);
+    }
+
+    // Método para excluir cliente
+    public void excluir(String id) {
+        produtoRepository.deleteById(id);
+    }
+
+
+    // Método para salvar um novo cliente ou atualizar um cliente existente
+    public Produto salvar(Produto produto) {
+        // O preco do cadastro e usado no calculo do valor dos pedidos
+        if (produto.getPreco() == null || produto.getPreco() <= 0) {
+            throw new IllegalArgumentException("Informe um preço maior que zero.");
+        }
+        // Se o cliente não tem ID (novo cliente), salva como novo
+        if (produto.getId() == null) {
+            return produtoRepository.save(produto);  // Cria um novo cliente
+        } // Se já tem ID (cliente existente), atualiza
+        else {
+            // Verifica se o cliente existe antes de atualizar
+            if (produtoRepository.existsById(produto.getId())) {
+                return produtoRepository.save(produto);  // Atualiza o cliente existente
+            } else {
+                throw new IllegalArgumentException("Produto não encontrado para atualização.");
+            }
+        }
+    }
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Auditoria</title>
+</head>
+<body>
+
+<div th:fragment="content">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold mb-0">
+            <i class="bi bi-journal-check me-2 text-primary"></i>Auditoria
+        </h2>
+    </div>
+
+    <!-- Somente consulta: não há opções de alteração ou exclusão dos registros -->
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <table class="table table-sm align-middle mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="ps-3">Data e hora</th>
+                        <th>Usuário</th>
+                        <th>Perfil</th>
+                        <th>Operação</th>
+                        <th>Entidade</th>
+                        <th>Alterações (campo: anterior → novo)</th>
+                        <th>Justificativa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${#lists.isEmpty(registros)}">
+                        <td colspan="7" class="text-center text-muted py-5">Nenhum registro de auditoria.</td>
+                    </tr>
+                    <tr th:each="r : ${registros}">
+                        <td class="ps-3" th:text="${#temporals.format(r.dataHora, 'dd/MM/yyyy HH:mm:ss')}"></td>
+                        <td th:text="${r.usuario}"></td>
+                        <td th:text="${r.perfil}"></td>
+                        <td th:text="${r.operacao}"></td>
+                        <td><span th:text="${r.entidade}"></span><br><small class="text-muted" th:text="${r.entidadeId}"></small></td>
+                        <td>
+                            <div th:each="a : ${r.alteracoes}">
+                                <strong th:text="${a.campo}"></strong>:
+                                <span class="text-muted" th:text="${a.valorAnterior ?: '-'}"></span> →
+                                <span th:text="${a.valorNovo ?: '-'}"></span>
+                            </div>
+                        </td>
+                        <td th:text="${r.justificativa}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
