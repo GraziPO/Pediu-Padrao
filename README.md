@@ -4,6 +4,8 @@ Sistema de pedidos de pizzaria (Java 21, Spring Boot 3, Spring Security, MongoDB
 para a Atividade Prática M1 – Parte 2: perfis de acesso, ciclo de vida dos pedidos, descontos e
 cancelamentos exclusivos do gerente e auditoria persistente.
 
+**Vídeo de demonstração:** [assistir ao vídeo](https://organizacaomogiana-my.sharepoint.com/:v:/g/personal/11231103878_alunos_umc_br/IQBsNQH6EChmS6201BJiX272Ae6Sa8F09NC3hRV21zp6vbs?e=dhRYEw)
+
 ## Como executar
 
 ### Pré-requisitos
