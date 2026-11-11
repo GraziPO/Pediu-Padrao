@@ -59,6 +59,9 @@ public class SecurityConfig {
                         // Auditoria: consulta somente ADMIN e GERENTE
                         .requestMatchers("/auditoria/**", "/api/auditoria/**").hasAnyRole("ADMIN", "GERENTE")
 
+                        // Dashboard administrativo (tela e API somente leitura): ADMIN e GERENTE
+                        .requestMatchers("/dashboard", "/api/dashboard/**").hasAnyRole("ADMIN", "GERENTE")
+
                         // Desconto e cancelamento: somente GERENTE (inclusive em relacao ao ADMIN)
                         .requestMatchers(HttpMethod.POST, "/api/pedidos/*/desconto", "/api/pedidos/*/cancelar",
                                 "/pedidos/*/desconto", "/pedidos/*/cancelar").hasRole("GERENTE")
